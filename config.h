@@ -87,6 +87,7 @@ static Key keys[] = {
 	{ MODKEY|Mod1Mask,              XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_n,		   shiftviewclients,      {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_n,		   shiftviewclients,      {.i = -1 } },
+	{ MODKEY,                       XK_slash,	 swapfocus,      {0} },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
