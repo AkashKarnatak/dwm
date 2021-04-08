@@ -757,10 +757,11 @@ drawbar(Monitor *m)
 			if (i > 0)
 				mw += ew / i;
 
+			int total_space = w; 
 			for (c = m->clients; c; c = c->next) {
 				if (!ISVISIBLE(c))
 					continue;
-				sw = MIN(m->sel == c ? w : mw, TEXTW(c->name));
+				sw = total_space/n; 
 
 				drw_setscheme(drw, scheme[m->sel == c ? SchemeSel : SchemeNorm]);
 				if (sw > 0) /* trap special handling of 0 in drw_text */
