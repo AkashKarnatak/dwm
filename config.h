@@ -67,6 +67,8 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 
 // Controls volume
 static const char *mutecmd[] = { "amixer", "-q", "set", "Master", "toggle", NULL };
@@ -112,7 +114,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_u,      setlayout,      {.v = &layouts[4]} },
 	{ MODKEY,                       XK_i,      setlayout,      {.v = &layouts[5]} },
 	{ MODKEY,                       XK_o,      setlayout,      {.v = &layouts[6]} },
-	{ MODKEY,                       XK_space,  setlayout,      {0} },
+	{ MODKEY,                       XK_grave,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
@@ -123,6 +125,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_n,		   shiftviewclients,      {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_n,		   shiftviewclients,      {.i = -1 } },
 	{ MODKEY,                       XK_slash,	 swapfocus,      {0} },
+	{ MODKEY,                       XK_space,  togglescratch,  {.v = scratchpadcmd } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
