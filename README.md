@@ -8,7 +8,7 @@ List of patches added:
 * fancybar (hacked to give same width to titles of all active windows)
 * gaplessgrid
 * fibonacci
-* doubledeck
+* deck
 * scratchpad
 * actualfullscreen
 
