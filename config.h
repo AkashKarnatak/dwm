@@ -21,7 +21,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", " " };
+static const char *tags[] = { "", "", "", "", "", "", "", "", " " };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -92,7 +92,6 @@ static const char *selectiontoclipboard[]  = { "takescreenshot", "sc", NULL };
 static const char *activewindowcapture[]  = { "takescreenshot", "w", NULL };
 static const char *activewindowtoclipboard[]  = { "takescreenshot", "wc", NULL };
 
-#include "skipshiftview.c"
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
