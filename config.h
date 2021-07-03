@@ -100,12 +100,12 @@ static Key keys[] = {
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|Mod1Mask,              XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
-	{ MODKEY,                       XK_j,      focusstack,     {.i = -1 } },
-	{ MODKEY,                       XK_k,      focusstack,     {.i = +1 } },
+	{ MODKEY,                       XK_h,      focusstack,     {.i = -1 } },
+	{ MODKEY,                       XK_l,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_d,      incnmaster,     {.i = +1 } },
 	{ MODKEY|Mod1Mask,              XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|Mod1Mask,              XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY|Mod1Mask,              XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_Return, zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY|Mod1Mask,              XK_c,      killclient,     {0} },
@@ -138,7 +138,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_7,                      6)
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
-	{ MODKEY|Mod1Mask,              XK_q,      quit,           {0} },
+	{ MODKEY|Mod1Mask|ShiftMask,    XK_Delete, quit,           {0} },
 	{ 0,                     XF86XK_AudioMute, spawn,          {.v = mutecmd } },
 	{ 0, 	  					XF86XK_AudioLowerVolume, spawn,          {.v = voldowncmd } },
 	{ 0, 							XF86XK_AudioRaiseVolume, spawn,          {.v = volupcmd } },
