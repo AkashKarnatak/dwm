@@ -32,6 +32,8 @@ static const Rule rules[] = {
 	/* { "Gimp",           NULL,       NULL,       0,            1,           -1 }, */
 	{ "Matplotlib",     NULL,       NULL,       0,            1,           -1 },
 	{ "firefox",     "Devtools",       NULL,       0,            1,           -1 },
+	{ NULL,             NULL,       "image",       0,            1,           -1 },
+	{ "ModernGL",       NULL,    NULL,       0,            1,           -1 },
 	/* { "firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
 };
 
