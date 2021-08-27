@@ -28,13 +28,15 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class            instance    title       tags mask     isfloating   monitor */
-	/* { "Gimp",           NULL,       NULL,       0,            1,           -1 }, */
-	{ "Matplotlib",     NULL,       NULL,       0,            1,           -1 },
-	{ "firefox",     "Devtools",       NULL,       0,            1,           -1 },
-	{ NULL,             NULL,       "image",       0,            1,           -1 },
-	{ "ModernGL",       NULL,    NULL,       0,            1,           -1 },
-	/* { "firefox",  NULL,       NULL,       1 << 8,       0,           -1 }, */
+	/* class                instance                title                tags mask     isfloating   monitor */
+  /* { "Gimp",               NULL,                   NULL,                 0,            1,           -1 }, */
+	{ "Matplotlib",         NULL,                   NULL,                 0,            1,           -1 },
+	{ "firefox",            "Devtools",             NULL,                 0,            1,           -1 },
+	{ NULL,                 NULL,                   "image",              0,            1,           -1 },
+	{ "ModernGL",           NULL,                   NULL,                 0,            1,           -1 },
+	{ "firefox",            "Places",               "Library",            0,            1,           -1 },
+	{ NULL,                 NULL,                   "querywindow",       -1,            1,           -1 },
+	/* { "firefox",            NULL,                   NULL,                 1 << 8,       0,           -1 }, */
 };
 
 /* layout(s) */
@@ -70,7 +72,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-hp", "chromium,discord,firefox,ffp,pcmanfm,simplescreenrecorder,slock,timetable", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
@@ -96,6 +98,15 @@ static const char *selectioncapture[]  = { "takescreenshot", "s", NULL };
 static const char *selectiontoclipboard[]  = { "takescreenshot", "sc", NULL };
 static const char *activewindowcapture[]  = { "takescreenshot", "w", NULL };
 static const char *activewindowtoclipboard[]  = { "takescreenshot", "wc", NULL };
+
+// Configure second monitor
+static const char *secondmonitor[]  = { "second_monitor", NULL };
+
+// Timer commands
+static const char *settimer[]  = { "set_timer", NULL };
+
+// Control commands
+static const char *controls[]  = { "controls", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -157,6 +168,9 @@ static Key keys[] = {
 	{ ControlMask|ShiftMask,  		  XK_Print,			       spawn,          {.v = selectiontoclipboard } },
 	{ Mod1Mask,  			  	XK_Print,			       spawn,          {.v = activewindowcapture } },
 	{ ControlMask|Mod1Mask, 		 	  XK_Print,			       spawn,          {.v = activewindowtoclipboard } },
+	{ 0,						       XF86XK_AudioPlay,   spawn, 				 {.v = settimer} },
+	{ ShiftMask,			                XK_F4,           spawn, 				 {.v = secondmonitor} },
+	{ 0,			     XF86XK_AudioPrev,           spawn, 				 {.v = controls} },
 };
 
 /* button definitions */
