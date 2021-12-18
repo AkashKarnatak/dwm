@@ -28,15 +28,15 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class                instance                title                tags mask     isfloating   monitor */
-  /* { "Gimp",               NULL,                   NULL,                 0,            1,           -1 }, */
-	{ "Matplotlib",         NULL,                   NULL,                 0,            1,           -1 },
-	{ "firefox",            "Devtools",             NULL,                 0,            1,           -1 },
-	{ NULL,                 NULL,                   "image",              0,            1,           -1 },
-	{ "ModernGL",           NULL,                   NULL,                 0,            1,           -1 },
-	{ "firefox",            "Places",               "Library",            0,            1,           -1 },
-	{ NULL,                 NULL,                   "querywindow",       -1,            1,           -1 },
-	/* { "firefox",            NULL,                   NULL,                 1 << 8,       0,           -1 }, */
+	/* class                instance                title                tags mask   ishcentered   isvcentered   isfloating   monitor */
+	{ "Matplotlib",         NULL,                   NULL,                 0,            1,           1,           1,           -1 },
+	{ "firefox",            "Devtools",             NULL,                 0,            0,           0,           1,           -1 },
+	{ NULL,                 NULL,                   "image",              0,            1,           1,           1,           -1 },
+	{ "ModernGL",           NULL,                   NULL,                 0,            1,           1,           1,           -1 },
+	{ "firefox",            "Places",               "Library",            0,            1,           1,           1,           -1 },
+	{ NULL,                 NULL,                   "querywindow",       -1,            1,           0,           1,           -1 },
+  /* { "Gimp",               NULL,                   NULL,                 0,            0,           0,           1,           -1 }, */
+	/* { "firefox",            NULL,                   NULL,                 1 << 8,       0,           0,           0,           -1 }, */
 };
 
 /* layout(s) */
@@ -72,7 +72,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-hp", "chromium,discord,firefox,ffp,pcmanfm,simplescreenrecorder,slock,timetable", NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-hp", "chromium,discord,firefox,ffp,pcmanfm,simplescreenrecorder,slock,timetable,whatsapp", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
