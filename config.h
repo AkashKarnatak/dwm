@@ -9,11 +9,11 @@ static const int topbar             = 1;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
 static const char *fonts[]          = { "monospace:size=10", "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:size=12", "Font Awesome 5 Free,Font Awesome 5 Free Solid:size=12", "Hack Nerd Font:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
-static const char col_gray1[]       = "#2c2e34";
+static const char col_gray1[]       = "#282c34";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#e2e2e3";
 static const char col_gray4[]       = "#ffffff";
-static const char col_cyan[]        = "#8d7cbf";
+static const char col_cyan[]        = "#499fd9";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
@@ -35,6 +35,8 @@ static const Rule rules[] = {
 	{ "ModernGL",           NULL,                   NULL,                 0,            1,           1,           1,           -1 },
 	{ "firefox",            "Places",               "Library",            0,            1,           1,           1,           -1 },
 	{ NULL,                 NULL,                   "querywindow",       -1,            1,           0,           1,           -1 },
+	{ NULL,                 NULL,                   "Output",             0,            1,           1,           1,           -1 },
+	{ "jetbrains-studio",   "jetbrains-studio",     "win0",               0,            1,           1,           1,           -1 },
   /* { "Gimp",               NULL,                   NULL,                 0,            0,           0,           1,           -1 }, */
 	/* { "firefox",            NULL,                   NULL,                 1 << 8,       0,           0,           0,           -1 }, */
 };
@@ -108,6 +110,11 @@ static const char *settimer[]  = { "set_timer", NULL };
 // Control commands
 static const char *controls[]  = { "controls", NULL };
 
+// dunst commands
+static const char *dunstclose[] = {"dunstctl", "close", NULL };
+static const char *dunstcloseall[] = {"dunstctl", "close-all", NULL };
+static const char *dunsthistorypop[] = {"dunstctl", "history-pop", NULL };
+
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
@@ -171,6 +178,9 @@ static Key keys[] = {
 	{ 0,						       XF86XK_AudioPlay,   spawn, 				 {.v = settimer} },
 	{ ShiftMask,			                XK_F4,           spawn, 				 {.v = secondmonitor} },
 	{ 0,			     XF86XK_AudioPrev,           spawn, 				 {.v = controls} },
+	{ ControlMask,  		    XK_space,			     spawn,          {.v = dunstclose } },
+	{ ControlMask|ShiftMask,  	 XK_space,			     spawn,          {.v = dunstcloseall } },
+	{ ControlMask,  	      XK_grave,			     spawn,          {.v = dunsthistorypop } },
 };
 
 /* button definitions */
