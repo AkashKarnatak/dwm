@@ -7,7 +7,12 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = { "monospace:size=10", "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:size=12", "Font Awesome 5 Free,Font Awesome 5 Free Solid:size=12", "Hack Nerd Font:size=12" };
+static const char *fonts[]          = {
+  "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:size=12",
+  "Font Awesome 5 Free,Font Awesome 5 Free Solid:size=12",
+  "JetbrainsMono nerd font:size=10",
+  "Hack Nerd Font:size=12",
+  "Material Design Icons Desktop:size=12" };
 static const char dmenufont[]       = "monospace:size=10";
 static const char col_gray1[]       = "#282c34";
 static const char col_gray2[]       = "#444444";
