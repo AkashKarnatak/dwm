@@ -59,7 +59,14 @@
 
 /* enums */
 enum { CurNormal, CurResize, CurMove, CurLast }; /* cursor */
-enum { SchemeNorm, SchemeSel, SchemeTitle, SchemeUline, SchemeButton }; /* color schemes */
+enum { SchemeNorm, SchemeSel, SchemeUline, SchemeButton,
+       SchemeBrBlack, SchemeBrWhite, SchemeFloat,
+       SchemeTag, SchemeTag1, SchemeTag2, SchemeTag3, 
+       SchemeTag4, SchemeTag5, SchemeTag6, SchemeTag7, 
+       SchemeTag8, SchemeTag9, SchemeLayout, SchemeTitle,
+       SchemeTagSel, SchemeTag1Sel, SchemeTag2Sel, SchemeTag3Sel, 
+       SchemeTag4Sel, SchemeTag5Sel, SchemeTag6Sel,
+			 SchemeTag7Sel, SchemeTag8Sel, SchemeTag9Sel };
 enum { NetSupported, NetWMName, NetWMState, NetWMCheck,
        NetWMFullscreen, NetActiveWindow, NetWMWindowType,
        NetWMWindowTypeDialog, NetClientList, NetLast }; /* EWMH atoms */
@@ -122,6 +129,7 @@ struct Monitor {
 	unsigned int seltags;
 	unsigned int sellt;
 	unsigned int tagset[2];
+	unsigned int colorfultag;
 	int showbar;
 	int topbar;
 	Client *clients;
@@ -220,6 +228,7 @@ static void togglefullscr(const Arg *arg);
 static void togglescratch(const Arg *arg);
 static void toggletag(const Arg *arg);
 static void toggleview(const Arg *arg);
+static void togglecolorfultag();
 static void unfocus(Client *c, int setfocus);
 static void unmanage(Client *c, int destroyed);
 static void unmapnotify(XEvent *e);
@@ -662,6 +671,7 @@ createmon(void)
 	m->tagset[0] = m->tagset[1] = 1;
 	m->mfact = mfact;
 	m->nmaster = nmaster;
+  m->colorfultag = colorfultag ? colorfultag : 0;
 	m->showbar = showbar;
 	m->topbar = topbar;
 	m->lt[0] = &layouts[0];
@@ -853,11 +863,22 @@ drawbar(Monitor *m)
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, buttonbar, 0);
 	for (i = 0; i < LENGTH(tags); i++) {
 		w = TEXTW(tags[i]);
-		drw_setscheme(drw, scheme[m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm]);
+    drw_setscheme(
+      drw,
+      scheme[
+			m->colorfultag
+				? (
+					m->tagset[m->seltags] & 1 << i ? (occ & 1 << i ? seltagschemes[i] : SchemeTagSel) : (occ & 1 << i ? tagschemes[i] : SchemeTag)
+				)
+				: (m->tagset[m->seltags] & 1 << i ? SchemeSel : SchemeNorm)
+      ]
+    );
 		drw_text(drw, x, 0, w, bh, lrpad / 2, tags[i], urg & 1 << i);
 		if (ulineall || m->tagset[m->seltags] & 1 << i)
-			drw_setscheme(drw, scheme[SchemeUline]);
-		if (occ & 1 << i)
+			drw_setscheme(drw, scheme[
+          m->colorfultag ? ( occ & 1 << i ? seltagschemes[i] : SchemeTag ) : SchemeUline
+      ]);
+		if (m->tagset[m->seltags] & 1 << i )
 			drw_rect(drw, x + ulinepad, bh - ulinestroke - ulinevoffset,
         w - (ulinepad * 2),
         ulinestroke, m == selmon && selmon->sel && selmon->sel->tags & 1 << i,
@@ -865,7 +886,7 @@ drawbar(Monitor *m)
 		x += w;
 	}
 	w = blw = TEXTW(m->ltsymbol);
-	drw_setscheme(drw, scheme[SchemeNorm]);
+  drw_setscheme(drw, scheme[SchemeLayout]);
 	x = drw_text(drw, x, 0, w, bh, lrpad / 2, m->ltsymbol, 0);
 
 	if ((w = m->ww - sw - x) > bh) {
@@ -1923,6 +1944,13 @@ togglebar(const Arg *arg)
 	updatebarpos(selmon);
 	XMoveResizeWindow(dpy, selmon->barwin, selmon->wx, selmon->by, selmon->ww, bh);
 	arrange(selmon);
+}
+
+void
+togglecolorfultag()
+{
+  selmon->colorfultag = !selmon->colorfultag;
+  drawbar(selmon);
 }
 
 void

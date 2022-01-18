@@ -12,27 +12,66 @@ static const unsigned int ulinepad	= 2;	/* horizontal padding between the underl
 static const unsigned int ulinevoffset	= 1;	/* how far above the bottom of the bar the line should appear */
 static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
 static const char buttonbar[]       = " 󰣇 ";
+static const unsigned int colorfultag    = 1;  /* 0 means use SchemeSel for selected tag */
 
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:style:medium:size=10", "Material Design Icons:size=11" };
-
-static const char dmenufont[]       = "JetBrainsMono Nerd Font:style:medium:size=10";
-static const char col_gray1[]       = "#282c34";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#e2e2e3";
-static const char col_gray4[]       = "#ffffff";
-static const char col_highlight[]   = "#3e4451";
-static const char col_cyan[]        = "#b26cc7";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_highlight,  col_cyan  },
-	[SchemeTitle]  = { col_cyan, col_highlight,  col_cyan  },
-	[SchemeUline]  = { col_cyan, col_gray1,  col_cyan },
-	[SchemeButton]  = { col_gray4, col_cyan,  col_cyan },
+static const char dmenufont[]         = "JetBrainsMono Nerd Font:style:medium:size=10";
+static const char col_gray1[]         = "#282c34";
+static const char col_gray2[]         = "#444444";
+static const char col_gray3[]         = "#e2e2e3";
+static const char col_gray4[]         = "#ffffff";
+static const char col_highlight[]     = "#3e4451";
+static const char col_cyan[]          = "#b26cc7";
+static const char col_black[]         = "#1e222a";
+static const char col_green[]         = "#7eca9c";
+static const char col_white[]         = "#cdcdcd";
+static const char col_grey[]          = "#282c34";
+static const char col_blue[]          = "#7aa2f7";
+static const char col_red[]           = "#d47d85";
+static const char col_yellow[]        = "#d7ba7d";
+static const char col_orange[]        = "#ff9f4a";
+static const char col_magenta[]       = "#b48ead";
+static const char col_disable[]       = "#7d7f82";
+static const char *colors[][3]        = {
+	/*                        fg               bg                  border   */
+	[SchemeNorm]       = { col_gray3,       col_gray1,           col_gray2 },
+	[SchemeSel]        = { col_gray4,       col_highlight,       col_cyan  },
+	[SchemeTitle]      = { col_cyan,        col_highlight,       col_cyan  },
+	[SchemeUline]      = { col_cyan,        col_gray1,           col_cyan },
+	[SchemeButton]     = { col_gray4,       col_cyan,            col_cyan },
+	[SchemeTag]        = { col_disable,     col_gray1,           col_gray2 },
+	[SchemeTag1]       = { col_yellow,      col_gray1,           col_gray2 },
+	[SchemeTag2]       = { col_red,         col_gray1,           col_gray2 },
+	[SchemeTag3]       = { col_blue,        col_gray1,           col_gray2 },
+	[SchemeTag4]       = { col_magenta,     col_gray1,           col_gray2 },
+	[SchemeTag5]       = { col_green,       col_gray1,           col_gray2 },
+	[SchemeTag6]       = { col_yellow,      col_gray1,           col_gray2 },
+	[SchemeTag7]       = { col_blue,        col_gray1,           col_gray2 },
+	[SchemeTag8]       = { col_orange,      col_gray1,           col_gray2 },
+	[SchemeTag9]       = { col_white,       col_gray1,           col_gray2 },
+	[SchemeTagSel]     = { col_disable,     col_highlight,       col_gray2 },
+	[SchemeTag1Sel]    = { col_yellow,      col_highlight,       col_gray2 },
+	[SchemeTag2Sel]    = { col_red,         col_highlight,       col_gray2 },
+	[SchemeTag3Sel]    = { col_blue,        col_highlight,       col_gray2 },
+	[SchemeTag4Sel]    = { col_magenta,     col_highlight,       col_gray2 },
+	[SchemeTag5Sel]    = { col_green,       col_highlight,       col_gray2 },
+	[SchemeTag6Sel]    = { col_yellow,      col_highlight,       col_gray2 },
+	[SchemeTag7Sel]    = { col_blue,        col_highlight,       col_gray2 },
+	[SchemeTag8Sel]    = { col_orange,      col_highlight,       col_gray2 },
+	[SchemeTag9Sel]    = { col_white,       col_highlight,       col_gray2 },
+	[SchemeLayout]     = { col_red,         col_gray1,           col_gray2 },
 };
 
 /* tagging */
-static const char *tags[] = { "", "󰚺", "󰇮", "", "󰓇", "󰔁", "", "󰈹", "󰚺" };
+static const char *tags[] = { "", "", "亂", "", "󰓇", "", "󰔁", "󰈹", "󰚺" };
+
+
+static const int tagschemes[] = { SchemeTag1, SchemeTag2, SchemeTag3,
+                                  SchemeTag4, SchemeTag5, SchemeTag6,
+                                  SchemeTag7, SchemeTag8, SchemeTag9 };
+static const int seltagschemes[] = { SchemeTag1Sel, SchemeTag2Sel, SchemeTag3Sel,
+                                  SchemeTag4Sel, SchemeTag5Sel, SchemeTag6Sel,
+                                  SchemeTag7Sel, SchemeTag8Sel, SchemeTag9Sel };
 
 static const Rule rules[] = {
 	/* xprop(1):
