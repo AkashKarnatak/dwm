@@ -7,27 +7,32 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const Bool viewontag         = True;     /* Switch view on tag switch */
-static const char *fonts[]          = {
-  "Font Awesome 5 Brands,Font Awesome 5 Brands Regular:size=12",
-  "Font Awesome 5 Free,Font Awesome 5 Free Solid:size=12",
-  "JetbrainsMono nerd font:size=10",
-  "Hack Nerd Font:size=12",
-  "Material Design Icons Desktop:size=12" };
-static const char dmenufont[]       = "monospace:size=10";
+static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
+static const unsigned int ulinepad	= 2;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinevoffset	= 1;	/* how far above the bottom of the bar the line should appear */
+static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
+static const char buttonbar[]       = " 󰣇 ";
+
+static const char *fonts[]          = { "JetBrainsMono Nerd Font:style:medium:size=10", "Material Design Icons:size=11" };
+
+static const char dmenufont[]       = "JetBrainsMono Nerd Font:style:medium:size=10";
 static const char col_gray1[]       = "#282c34";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#e2e2e3";
 static const char col_gray4[]       = "#ffffff";
-static const char col_cyan[]        = "#c678dd";
+static const char col_highlight[]   = "#3e4451";
+static const char col_cyan[]        = "#b26cc7";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_cyan  },
-	[SchemeTitle]  = { col_gray1, col_cyan,  col_cyan  },
+	[SchemeSel]  = { col_gray4, col_highlight,  col_cyan  },
+	[SchemeTitle]  = { col_cyan, col_highlight,  col_cyan  },
+	[SchemeUline]  = { col_cyan, col_gray1,  col_cyan },
+	[SchemeButton]  = { col_gray4, col_cyan,  col_cyan },
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "", "", "", "", "", "", " " };
+static const char *tags[] = { "", "󰚺", "󰇮", "", "󰓇", "󰔁", "", "󰈹", "󰚺" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -80,6 +85,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
+// static const char *dmenucmd[] = { "dmenu_run", "-c", "-l", "20", "-g", "2", "-p", "Run :", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-hp", "chromium,discord,firefox,ffp,pcmanfm,simplescreenrecorder,slock,timetable,whatsapp", NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, "-hp", "chromium,discord,firefox,ffp,pcmanfm,simplescreenrecorder,slock,timetable,whatsapp", NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
@@ -120,6 +126,8 @@ static const char *controls[]  = { "controls", NULL };
 static const char *dunstclose[] = {"dunstctl", "close", NULL };
 static const char *dunstcloseall[] = {"dunstctl", "close-all", NULL };
 static const char *dunsthistorypop[] = {"dunstctl", "history-pop", NULL };
+
+static const char* eww[]      = { "eww", "open" , "eww", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -204,5 +212,6 @@ static Button buttons[] = {
 	{ ClkTagBar,            0,              Button3,        toggleview,           {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,                  {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,            {0} },
+  { ClkButton,		0,		Button1,	spawn,		{.v = eww } }
 };
 
